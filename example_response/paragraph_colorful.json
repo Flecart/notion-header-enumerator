@@ -1,0 +1,122 @@
+{
+    "has_more": true,
+    "next_cursor": "fe2f7109-b447-4762-a879-550cd37df620",
+    "object": "list",
+    "results": [
+        {
+            "archived": false,
+            "created_time": "2021-10-10T10:52:00.000Z",
+            "has_children": false,
+            "id": "3a44b32f-d94f-4eb2-ac52-508dfe720540",
+            "last_edited_time": "2021-10-10T10:53:00.000Z",
+            "object": "block",
+            "paragraph": {
+                "text": [
+                    {
+                        "annotations": {
+                            "bold": false,
+                            "code": false,
+                            "color": "default",
+                            "italic": false,
+                            "strikethrough": false,
+                            "underline": false
+                        },
+                        "href": null,
+                        "plain_text": "testo ",
+                        "text": {
+                            "content": "testo ",
+                            "link": null
+                        },
+                        "type": "text"
+                    },
+                    {
+                        "annotations": {
+                            "bold": true,
+                            "code": false,
+                            "color": "default",
+                            "italic": false,
+                            "strikethrough": false,
+                            "underline": false
+                        },
+                        "href": null,
+                        "plain_text": "testo ",
+                        "text": {
+                            "content": "testo ",
+                            "link": null
+                        },
+                        "type": "text"
+                    },
+                    {
+                        "annotations": {
+                            "bold": true,
+                            "code": false,
+                            "color": "default",
+                            "italic": true,
+                            "strikethrough": false,
+                            "underline": false
+                        },
+                        "href": null,
+                        "plain_text": "altrotesto",
+                        "text": {
+                            "content": "altrotesto",
+                            "link": null
+                        },
+                        "type": "text"
+                    },
+                    {
+                        "annotations": {
+                            "bold": true,
+                            "code": false,
+                            "color": "default",
+                            "italic": false,
+                            "strikethrough": false,
+                            "underline": true
+                        },
+                        "href": null,
+                        "plain_text": ", ancora testo ",
+                        "text": {
+                            "content": ", ancora testo ",
+                            "link": null
+                        },
+                        "type": "text"
+                    },
+                    {
+                        "annotations": {
+                            "bold": false,
+                            "code": false,
+                            "color": "default",
+                            "italic": true,
+                            "strikethrough": false,
+                            "underline": false
+                        },
+                        "href": null,
+                        "plain_text": " ddfd, ",
+                        "text": {
+                            "content": " ddfd, ",
+                            "link": null
+                        },
+                        "type": "text"
+                    },
+                    {
+                        "annotations": {
+                            "bold": false,
+                            "code": false,
+                            "color": "red_background",
+                            "italic": false,
+                            "strikethrough": false,
+                            "underline": false
+                        },
+                        "href": null,
+                        "plain_text": "colorato",
+                        "text": {
+                            "content": "colorato",
+                            "link": null
+                        },
+                        "type": "text"
+                    }
+                ]
+            },
+            "type": "paragraph"
+        }
+    ]
+}

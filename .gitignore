@@ -1,4 +1,4 @@
 __pycache__/
 
 config.ini
-Dockerfile
+keys.env
