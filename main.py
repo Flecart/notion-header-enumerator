@@ -25,8 +25,9 @@ def updateHeaders(pageId: str) -> None:
 
 	oldChapter = Chapter(first=getFirstNumber(startingBlockNumber))
 
+	start_cursor = startingBlockNumber
 	while True:
-		responseObject = client.getBlockChildren(pageId, start_cursor=startingBlockNumber)
+		responseObject = client.getBlockChildren(pageId, start_cursor=start_cursor)
 		blockList = responseObject['results']
 		# TODO: this is too much indentation
 		# should simplify with a new function
@@ -38,7 +39,7 @@ def updateHeaders(pageId: str) -> None:
 
 		if not responseObject["has_more"]:
 			break
-
+		start_cursor = responseObject['next_cursor']
 	return
 
 
@@ -97,7 +98,7 @@ def getFirstNumber(firstNumberBlock: str) -> int:
 def getFirstNumberBlock(pageId: str):
 	""" Gets the first 10 block and looks for  the header with number """
 	responseObject = client.getBlockChildren(pageId, page_size=10)
-	
+
 	if 'code' in responseObject:
 		print(json.dumps(responseObject, indent=4, sort_keys=True))
 		return False 
