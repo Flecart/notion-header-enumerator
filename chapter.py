@@ -1,6 +1,6 @@
 import re
 class Chapter():
-	def __init__(self, first: int, second: int=0, third: int =0, from_string: str="") -> None:
+	def __init__(self, first: int=0, second: int=0, third: int =0, from_string: str="") -> None:
 		if from_string == "":
 			self.first = int(first)
 			self.second = int(second)
@@ -14,7 +14,7 @@ class Chapter():
 			numbers = [int(number) for number in from_string.split(".")]
 			# fill  numbers with None in case not 3
 			if len(numbers) < 3:
-				numbers += [-1] * (3 - len(numbers))
+				numbers += [0] * (3 - len(numbers))
 
 			self.first = int(numbers[0])
 			self.second = int(numbers[1])
@@ -51,29 +51,21 @@ class Chapter():
 			heading_2
 			heading_3
 		"""
-		if type == "heading":
-			# matches any integer number in those form
-			# single number: 1  10  10000
-			# double n: 1.2 10.1234 12.1
-			# triple number: 1.2.1  30.122.34 34.34.132
-			chapterRegex = re.compile(r"\d+\.\d+\.\d+|\d+\.\d+|\d+")
-			searchResult = chapterRegex.search(string)
-			return bool(searchResult)
-			
-		elif type == "heading_1":
-			chapterRegex = re.compile(r"\d+")
-			searchResult = chapterRegex.search(string)
-			return bool(searchResult)
-		
-		elif type == "heading_2":
-			chapterRegex = re.compile(r"\d+\.\d+")
-			searchResult = chapterRegex.search(string)
-			return bool(searchResult)
-
-		elif type == "heading_3":
-			chapterRegex = re.compile(r"\d+\.\d+\.\d+")
-			searchResult = chapterRegex.search(string)
-			return bool(searchResult)
-
-		else:
+		# matches any integer number in those form
+		# single number: 1  10  10000
+		# double n: 1.2 10.1234 12.1
+		# triple number: 1.2.1  30.122.34 34.34.132
+		supported = {
+			"heading": r"\d+\.\d+\.\d+|\d+\.\d+|\d+",
+			"heading_1": r"\d+",
+			"heading_2": r"\d+\.\d+",
+			"heading_3": r"\d+\.\d+\.\d+"
+		}
+		try:
+			currentRegex = supported[type]
+		except KeyError:
 			raise TypeError(f"Cannot parse type {type}")
+
+		chapterRegex = re.compile(currentRegex)
+		searchResult = chapterRegex.search(string)
+		return bool(searchResult)

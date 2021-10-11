@@ -49,8 +49,13 @@ def updateBlock(block, oldChapter: Chapter) -> Chapter:
 	returns the new updated chapter to keep track of the progress
 	"""
 	type = block['type']
-	oldHeading = getOldHeadingText(block)
 	currentChapter = setChapter(oldChapter, type)
+
+	if isSameChapter(currentChapter, block):
+		print(f"Heading with chapter {block[type]['text'][0]['plain_text']} is the same")
+		return currentChapter
+		
+	oldHeading = getOldHeadingText(block)
 
 	newHeading = f"{str(currentChapter)} {oldHeading}"
 	client.updateTextBlock(block['id'], text=newHeading, type=type)
@@ -58,17 +63,29 @@ def updateBlock(block, oldChapter: Chapter) -> Chapter:
 
 	return currentChapter
 
+
+def isSameChapter(currentChapter, block):
+	listOfWords = getListOfWords(block)
+	if Chapter(from_string=listOfWords[0]) == currentChapter:
+		return True
+
+	return False
+
+
 def getOldHeadingText(block) -> str:
+	listOfWords = getListOfWords(block)
+
+	# filter the first word if it's a header content
+	if Chapter.isChapterStr(listOfWords[0], block['type']):
+		return " ".join(listOfWords[1::])
+
+	return " ".join(listOfWords)
+
+def getListOfWords(block):
 	type = block['type']
 	blockText = block[type]['text'][0]['plain_text']
 	listOfWords = blockText.split(" ")
-	firstWord = listOfWords[0]
-
-	# filter the first word if it's a header content
-	if Chapter.isChapterStr(firstWord, type):
-		return " ".join(listOfWords[1::])
-
-	return blockText
+	return listOfWords
 
 def setChapter(currentChapter: Chapter, type: str) -> Chapter:
 	"""
