@@ -1,21 +1,21 @@
 import json
 from chapter import Chapter
 from client import NotionClient
+import argparse
+from typing import Union
 
 # TODO: create types for Notion responses
 client = NotionClient()
 
 def main():
-	from sys import argv
-	if len(argv) != 2:
-		print("Usage python3 main.py [notion-id]")
-		return 
-
-	pageId = argv[1] 
-	updateHeaders(pageId)
+	parser = argparse.ArgumentParser()
+	parser.add_argument("pageId", type=str, help="Input the Notion pageId")
+	parser.add_argument("-n", "--number", type=int, help="Add the number you want to change the first numbered header to") 
+	args = parser.parse_args()
+	updateHeaders(args.pageId, args.number)
 
 
-def updateHeaders(pageId: str) -> None:
+def updateHeaders(pageId: str, chapterNumber: Union[int, None] = None) -> None:
 	supportedTypes = ['heading_1', 'heading_2', 'heading_3']
 
 	startingBlockNumber = getFirstNumberBlock(pageId)
@@ -23,7 +23,10 @@ def updateHeaders(pageId: str) -> None:
 		print("There is no heading with the first number in page with ID: " + pageId)
 		return 
 
-	oldChapter = Chapter(first=getFirstNumber(startingBlockNumber))
+	if chapterNumber:
+		oldChapter = Chapter(first=chapterNumber)
+	else:
+		oldChapter = Chapter(first=getFirstNumber(startingBlockNumber))
 
 	start_cursor = startingBlockNumber
 	while True:
