@@ -9,7 +9,7 @@ class Chapter():
 			if len(from_string.split(" ")) > 1:
 				raise Exception("Enter a single word, not a phrase (not supported)")
 			if not self.isChapterStr(from_string):
-				raise TypeError("Format of the string is not correct")
+				raise TypeError(f"String with format -{from_string}- is not correct, should be n or n.n or n.n.n")
 
 			numbers = [int(number) for number in from_string.split(".")]
 			# fill  numbers with None in case not 3

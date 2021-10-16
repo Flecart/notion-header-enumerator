@@ -23,10 +23,12 @@ def updateHeaders(pageId: str, chapterNumber: Union[int, None] = None) -> None:
 		print("There is no heading with the first number in page with ID: " + pageId)
 		return 
 
+	# style: setChapter adds a 1 event to the first chapter
+	# this -1 fixes this thing, but it is not elegant
 	if chapterNumber:
-		oldChapter = Chapter(first=chapterNumber)
+		oldChapter = Chapter(first=chapterNumber - 1)
 	else:
-		oldChapter = Chapter(first=getFirstNumber(startingBlockNumber))
+		oldChapter = Chapter(first=getFirstNumber(startingBlockNumber) - 1)
 
 	start_cursor = startingBlockNumber
 	while True:
@@ -67,9 +69,9 @@ def updateBlock(block, oldChapter: Chapter) -> Chapter:
 	return currentChapter
 
 
-def isSameChapter(currentChapter, block):
+def isSameChapter(currentChapter: Chapter, block) -> bool:
 	listOfWords = getListOfWords(block)
-	if Chapter(from_string=listOfWords[0]) == currentChapter:
+	if Chapter.isChapterStr(listOfWords[0]) and Chapter(from_string=listOfWords[0]) == currentChapter:
 		return True
 
 	return False
@@ -112,7 +114,7 @@ def setChapter(currentChapter: Chapter, type: str) -> Chapter:
 def getFirstNumber(firstNumberBlock: str) -> int:
 	block = client.getBlock(firstNumberBlock)
 	blockText = block['heading_1']['text'][0]['plain_text']
-	return blockText.split(" ")[0]
+	return int(blockText.split(" ")[0])
 
 
 def getFirstNumberBlock(pageId: str):
